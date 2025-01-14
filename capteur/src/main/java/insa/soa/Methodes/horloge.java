@@ -6,9 +6,10 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
-public class horloge {
-<<<<<<< HEAD
+import org.springframework.stereotype.Component;
 
+@Component
+public class horloge {
     public static List<String> generateTimestamps(String startTime, String endTime, int intervalSeconds) {
         // Parse start and end times
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -35,20 +36,7 @@ public class horloge {
         return timestamps;
     }
 
-    public static void main(String[] args) {
-        // Example usage
-        String start = "2025-01-10 12:00:00";
-        String end = "2025-01-10 12:10:00";
-        int interval = 60; // 1 minute
 
-        List<String> timestamps = generateTimestamps(start, end, interval);
-
-        // Print the timestamps
-        for (String timestamp : timestamps) {
-            System.out.println(timestamp);
-        }
-=======
-    
     // Method to get the current date and time as a string, udes for timetamps
     public static String getCurrentDate() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -60,6 +48,5 @@ public class horloge {
     public static int getHour() {
         LocalDateTime now = LocalDateTime.now();
         return now.getHour();
->>>>>>> H
     }
 }

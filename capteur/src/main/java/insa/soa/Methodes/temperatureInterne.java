@@ -11,7 +11,8 @@ public class temperatureInterne extends Sensor {
     	super(id, "TemperatureInterne");
     }
     // Method to get a random number between 0 and 30
-    public static int getLumExterne() {
+    @Override
+    public int getValue() {
     	
     	int randInt;
         Random random = new Random();

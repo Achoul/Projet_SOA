@@ -3,6 +3,7 @@ package insa.soa.capteur;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -23,29 +24,13 @@ import insa.soa.Methodes.temperatureInterne;
 @RequestMapping("/Capteur")
 public class CapteurRest {
 	
-    private JdbcTemplate jdbcTemplate = new JdbcTemplate();
-    
-    // Injecting individual properties using @Value
-    @Value("${spring.application.name}")
-    private String appName;
-
-    @Value("${server.port}")
-    private int serverPort;
-
-    @Value("${spring.datasource.url}")
-    private String dbUrl;
-
-    @Value("${spring.datasource.username}")
-    private String dbUsername;
-
-    @Value("${spring.datasource.password}")
-    private String dbPassword;
-	
     private List<Sensor> sensors;
     
-    public horloge clock;
-
-    public CapteurRest() {
+    
+    public final horloge clock;
+    
+    @Autowired
+    public CapteurRest(horloge clock) {
         // Initialize sensors
         sensors = new ArrayList<>();
         sensors.add(new luminositeExterne(1));
@@ -53,6 +38,8 @@ public class CapteurRest {
         sensors.add(new presence(1));
         sensors.add(new temperatureExterne(1));
         sensors.add(new temperatureInterne(1));
+        
+        this.clock = clock;
     }
 
     // General GET method to return all sensors
@@ -61,18 +48,28 @@ public class CapteurRest {
         return ResponseEntity.ok(sensors);  // Returns HTTP 200 OK with the list of sensors
     }
     
+    @GetMapping("/test")
+    public String test() {
+        return "cool raoul" ;  // Returns HTTP 200 OK with the list of sensors
+    }
+    
     // Specific GET method to retrieve a sensor by ID and type
     @GetMapping("/{type}/{id}")
     public ResponseEntity<Sensor> getSensorByIdAndType(
             @PathVariable String type,  // Path variable for sensor type
             @PathVariable int id) {     // Path variable for sensor ID
     		String timestamp = clock.getCurrentDate(); //timestamp for SQL log
+    		int value;
     	
         // Look for a sensor that matches both the type and the ID
         for (Sensor sensor : sensors) {
             if (sensor.getType().equalsIgnoreCase(type) && sensor.getId() == id) {
-            	
-                return ResponseEntity.ok(sensor);  // If found, return the sensor
+            	value = sensor.getValue();
+                return ResponseEntity.ok()
+                		.header("X-Timestamp", timestamp)
+                		.header("X-Sensor-Value", String.valueOf(value))
+                		.body(sensor)
+                		;  // If found, return the sensor
             }
         }
 

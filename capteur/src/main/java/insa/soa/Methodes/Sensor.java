@@ -1,6 +1,6 @@
 package insa.soa.Methodes;
 
-public class Sensor {
+public abstract class Sensor {
     private int id;
     private String type;
 
@@ -16,4 +16,6 @@ public class Sensor {
     public String getType() {
         return type;
     }
+    
+    public abstract int getValue();
 }

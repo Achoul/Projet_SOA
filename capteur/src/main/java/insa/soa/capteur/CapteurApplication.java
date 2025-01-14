@@ -9,7 +9,7 @@ import insa.soa.Methodes.presence;
 import insa.soa.Methodes.temperatureExterne;
 import insa.soa.Methodes.temperatureInterne;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "insa.soa")
 public class CapteurApplication {
 	
 	public static void main(String[] args) {
