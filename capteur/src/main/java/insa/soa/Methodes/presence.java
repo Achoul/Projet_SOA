@@ -2,9 +2,13 @@ package insa.soa.Methodes;
 
 import java.util.Random;
 
-public class presence {
-    // Method to get a random number between 0 and 100
-
+public class presence extends Sensor {
+	int id;
+	
+    // Constructor to initialize the id
+    public presence(int id) {
+    	super(id, "Presence");
+    }
 	
     public static boolean getPresence() {
     	boolean isPresence = false;
