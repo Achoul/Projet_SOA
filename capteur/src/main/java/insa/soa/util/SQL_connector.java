@@ -18,6 +18,11 @@ public class SQL_connector {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
+    public int insertSensorValue(int sensorId, String sensorType, double value) {
+        String sql = "INSERT INTO Sensor_values (sensor_id, sensor_type, value) VALUES (?, ?, ?)";
+        return jdbcTemplate.update(sql, sensorId, sensorType, value);
+    }
+
     /**
      * Execute a SQL query and return the results as a list of maps.
      * Each map represents a row, with column names as keys and column values as values.

@@ -2,6 +2,8 @@ package insa.soa.Methodes;
 
 import java.util.Random;
 
+import insa.soa.util.SQL_connector;
+
 public class luminositeInterne extends Sensor {
 	
     // Constructor to initialize the id
@@ -13,7 +15,23 @@ public class luminositeInterne extends Sensor {
     @Override
     public int getValue() {
         Random random = new Random();
-        return random.nextInt(101); // 0 (inclusive) to 101 (exclusive)
+        int lum = random.nextInt(101);
+        
+        // Database connection details
+        String url = "jdbc:mysql://srv-bdens.insa-toulouse.fr:3306/projet_gei_038";
+        String username = "projet_gei_038";
+        String password = "Seek3kei";
+        String driverClassName = "com.mysql.cj.jdbc.Driver";
+
+        // Initialize SQL_connector
+        SQL_connector sqlConnector = new SQL_connector(url, username, password, driverClassName);
+
+        // Insert a new record into the Sensor_values table
+        int rowsAffected = sqlConnector.insertSensorValue(this.getId(), this.getType(), lum);
+        if (rowsAffected > 0) {
+            System.out.println("Record inserted successfully!");
+        }
+        return lum; // 0 (inclusive) to 101 (exclusive)
     }
    
 }
