@@ -1,7 +1,4 @@
-# Projet_SOA
-
-Bienvenue sur notre projet 
-# Application de gestion des salles de classe de l’INSA
+# Projet_SOA : Application de gestion des salles de classe de l’INSA
 
 Ce projet a été réalisé par Achilles Caute et Yann Jobard.
 
