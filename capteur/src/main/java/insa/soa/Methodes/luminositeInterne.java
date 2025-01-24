@@ -29,7 +29,7 @@ public class luminositeInterne extends Sensor {
         // Insert a new record into the Sensor_values table
         int rowsAffected = sqlConnector.insertSensorValue(this.getId(), this.getType(), lum);
         if (rowsAffected > 0) {
-            System.out.println("Record inserted successfully!");
+            System.out.println("Base de donnée sollicitée pour la luminosité intérieure");
         }
         return lum; // 0 (inclusive) to 101 (exclusive)
     }

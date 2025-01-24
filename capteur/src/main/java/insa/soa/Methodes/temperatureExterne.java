@@ -30,7 +30,7 @@ public class temperatureExterne extends Sensor {
         // Insert a new record into the Sensor_values table
         int rowsAffected = sqlConnector.insertSensorValue(this.getId(), this.getType(), randInt);
         if (rowsAffected > 0) {
-            System.out.println("Record inserted successfully!");
+            System.out.println("Base de donnée sollicitée pour la température extérieure");
         }
         
         return randInt;

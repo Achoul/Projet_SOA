@@ -30,7 +30,7 @@ import insa.soa.util.SQL_connector;
         // Insert a new record into the Sensor_values table
         int rowsAffected = sqlConnector.insertSensorValue(this.getId(), this.getType(), randint);
         if (rowsAffected > 0) {
-            System.out.println("Record inserted successfully!");
+            System.out.println("Base de donnée sollicitée pour la présence");
         }
         
         return randint;

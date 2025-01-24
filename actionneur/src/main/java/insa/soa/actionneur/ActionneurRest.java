@@ -3,9 +3,11 @@ package insa.soa.actionneur;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import insa.soa.methodes.Alarme;
 import insa.soa.methodes.Chauffage;
 import insa.soa.methodes.Climatisation;
 import insa.soa.methodes.Fenetre;
+import insa.soa.methodes.Lumiere;
 
 @RestController
 @RequestMapping("/actionneur")
@@ -14,6 +16,8 @@ public class ActionneurRest {
     private final Fenetre fenetre = new Fenetre();
     private final Climatisation climatisation = new Climatisation();
     private final Chauffage chauffage = new Chauffage();
+    private final Lumiere lumiere = new Lumiere();
+    private final Alarme alarme = new Alarme();
     
     @PostMapping("/execute")
     public String executeAction(@RequestBody String command) {
@@ -49,10 +53,28 @@ public class ActionneurRest {
         } 
         if ("NoAction".equalsIgnoreCase(command.trim())) {
             System.out.println("rien a faire");
-            return "Action executed: rien a faire";
+            return "Action executed: aucune, temperature stable";
         }
     	
-        
+        // Gestion de l'Éclairage
+        if ("LightOn".equalsIgnoreCase(command.trim())) {
+            Lumiere.allumerLumière(); 
+            return "Action executed: LightOn";
+        } 
+        if ("LightOut".equalsIgnoreCase(command.trim())) {
+            lumiere.eteindreLumière(); 
+            return "Action executed: LightOut";
+        }
+
+        // Gestion de l'Alarme
+        if ("AlarmOn".equalsIgnoreCase(command.trim())) {
+            Alarme.allumerAlarme(); 
+            return "Action executed: AlarmOn";
+        } 
+        if ("AlarmOut".equalsIgnoreCase(command.trim())) {
+            alarme.eteindreAlarme(); 
+            return "Action executed: AlarmOut";
+        }
         
     	
     	if ("test".equalsIgnoreCase(command.trim())) {
